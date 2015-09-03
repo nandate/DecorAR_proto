@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.0.16 (451861)"/><meta name="author" content="Takafumi Tsukamoto"/><meta name="created" content="2015-08-20 01:05:38 +0000"/><meta name="source" content="desktop.mac"/><meta name="updated" content="2015-08-22 08:42:44 +0000"/><title>Cordovaの環境をMacに構築、Android SDKの導入</title></head><body>
+<div>バージョンなどの情報</div>
+<div>OS X 10.10.5</div>
+<div>npm 2.7.4　←　Cordovaのインストールに必要</div>
+<div><br/></div>
+<div>#Cordovaのインストール</div>
+<div>$ npm i cordova -g</div>
+<div>#Cordovaのバージョンを確認</div>
+<div>$ cordova -v</div>
+<div>5.1.1</div>
+<div><br/></div>
+<div>コンソールでcordovaコマンドを使うことができるようになる。</div>
+<div><br/></div>
+<div>#プロジェクトの作成</div>
+<div>$ cordova create プロジェクト名</div>
+<div><br/></div>
+<div>#プロジェクト作成時のディレクトリ構造を確認</div>
+<div>$ tree *</div>
+<div>config.xml</div>
+<div>hooks</div>
+<div>└── README.md</div>
+<div>platforms</div>
+<div>plugins</div>
+<div>www</div>
+<div>├── css</div>
+<div>│   └── index.css</div>
+<div>├── img</div>
+<div>│   └── logo.png</div>
+<div>├── index.html</div>
+<div>└── js</div>
+<div>    └── index.js</div>
+<div><br/></div>
+<div>config.xml: プロジェクトの設定を書くファイル</div>
+<div>hooks: ビルド後に自動で実行されるスクリプトを置くディレクトリ</div>
+<div>            ビルド後に実行されるスクリプトはconfig.xmlやplugin.xmlに設定することもできるので、現在は非推奨要素みたい。</div>
+<div>platforms: Android, iOS, Webなど、それぞれのプラットフォーム用に変換するための設定ファイルなどが置いてあるディレクトリ</div>
+<div>$ cordova platform add プラットフォーム名</div>
+<div>で色々なファイルが追加される</div>
+<div>plugins: プラグインを置いておくディレクトリ</div>
+<div>www: 実際のアプリのソースファイルが置いてあるディレクトリ</div>
+<div><br/></div>
+<div>自分で編集するファイルは、confuig.xmlとwwwディレクトリ以下</div>
+<div><br/></div>
+<div><br/></div>
+<div><u><b>Browserでの実行</b></u></div>
+<div><br/></div>
+<div>プロジェクトを作成したときに、デフォルトでhelloWorldアプリ的なのがあるのでそれを実行してみる。</div>
+<div>デフォルトでは実行するプラットフォームが一つも設定されていない状態なので、プラットフォームを追加する。</div>
+<div><br/></div>
+<div># プラットフォーム一覧</div>
+<div>$ cordova platforms</div>
+<div>Installed platforms: </div>
+<div>Available platforms: amazon-fireos, android, blackberry10, browser, firefoxos, ios</div>
+<div><br/></div>
+<div># プラットフォームにブラウザを追加</div>
+<div>$ cordova platform add browser</div>
+<div>Adding browser project...</div>
+<div>Creating Browser project</div>
+<div>Project Path platforms/browser</div>
+<div>Package Name io.cordova.hellocordova</div>
+<div>Project Name HelloCordova</div>
+<div>Discovered plugin "cordova-plugin-whitelist" in config.xml. Installing to the project</div>
+<div>Fetching plugin "cordova-plugin-whitelist@1" via npm</div>
+<div>Installing "cordova-plugin-whitelist" for browser</div>
+<div><br/></div>
+<div># プラットフォーム一覧</div>
+<div>$ cordova platforms</div>
+<div>Installed platforms: browser 3.5.2</div>
+<div>Available platforms: amazon-fireos, android, blackberry10, firefoxos, ios</div>
+<div><br/></div>
+<div>browserが追加されたことがわかる。</div>
+<div>platformsディレクトリ、pluginsディレクトリを確認してみると、browser 用のビルド関連のファイルが追加されているのがわかる。</div>
+<div><br/></div>
+<div># プラットフォーム追加時のプロジェクトのディレクトリ構成を確認</div>
+<div>$ tree *</div>
+<div>config.xml</div>
+<div>hooks</div>
+<div>└── README.md</div>
+<div>platforms</div>
+<div>├── browser</div>
+<div>│   ├── config.xml</div>
+<div>│   ├── cordova</div>
+<div>│   │   ├── build</div>
+<div>│   │   ├── build.bat</div>
+<div>│   │   ├── clean</div>
+<div>│   │   ├── defaults.xml</div>
+<div>│   │   ├── lib</div>
+<div>│   │   ├── node_modules</div>
+<div>│   │   ├── run</div>
+<div>│   │   ├── run.bat</div>
+<div>│   │   ├── version</div>
+<div>│   │   └── version.bat</div>
+<div>│   ├── platform_www</div>
+<div>│   │   └── cordova.js</div>
+<div>│   └── www</div>
+<div>│       ├── config.xml</div>
+<div>│       ├── cordova.js</div>
+<div>│       ├── cordova_plugins.js</div>
+<div>│       ├── css</div>
+<div>│       ├── img</div>
+<div>│       ├── index.html</div>
+<div>│       ├── js</div>
+<div>│       └── plugins</div>
+<div>└── platforms.json</div>
+<div>plugins</div>
+<div>├── browser.json</div>
+<div>├── cordova-plugin-whitelist</div>
+<div>│   ├── CONTRIBUTING.md</div>
+<div>│   ├── LICENSE</div>
+<div>│   ├── NOTICE</div>
+<div>│   ├── README.md</div>
+<div>│   ├── RELEASENOTES.md</div>
+<div>│   ├── package.json</div>
+<div>│   ├── plugin.xml</div>
+<div>│   ├── src</div>
+<div>│   │   ├── android</div>
+<div>│   │   └── ios</div>
+<div>│   └── whitelist.js</div>
+<div>└── fetch.json</div>
+<div>www</div>
+<div>├── css</div>
+<div>│   └── index.css</div>
+<div>├── img</div>
+<div>│   └── logo.png</div>
+<div>├── index.html</div>
+<div>└── js</div>
+<div>    └── index.js</div>
+<div><br/></div>
+<div>これでbrowser用にアプリをビルドできるようになったはずなので、やってみる。</div>
+<div><br/></div>
+<div># browser用のアプリのビルド</div>
+<div>$ cordova build browser</div>
+<div>Running command: /Users/Takafumi/demo/hoge/platforms/browser/cordova/build </div>
+<div>Cleaning Browser project</div>
+<div>Browser packaged app built in platforms/browser/build/package.zip</div>
+<div><br/></div>
+<div># ビルド後のプロジェクトのディレクトリ構成を確認</div>
+<div>$ tree*</div>
+<div>config.xml </div>
+<div>hooks</div>
+<div>└── README.md</div>
+<div>platforms</div>
+<div>├── browser</div>
+<div>│   <span style="color: rgb(255, 38, 0);">├── build</span></div>
+<div>│   │   <span style="color: rgb(255, 38, 0);">└── package.zip</span></div>
+<div>│   ├── config.xml</div>
+<div>│   ├── cordova</div>
+<div>│   │   ├── build</div>
+<div>│   │   ├── build.bat</div>
+<div>│   │   ├── clean</div>
+<div>│   │   ├── defaults.xml</div>
+<div>│   │   ├── lib</div>
+<div>│   │   ├── node_modules</div>
+<div>│   │   ├── run</div>
+<div>│   │   ├── run.bat</div>
+<div>│   │   ├── version</div>
+<div>│   │   └── version.bat</div>
+<div>│   ├── platform_www</div>
+<div>│   │   └── cordova.js</div>
+<div>│   └── www</div>
+<div>│       ├── config.xml</div>
+<div>│       ├── cordova.js</div>
+<div>│       ├── cordova_plugins.js</div>
+<div>│       ├── css</div>
+<div>│       ├── img</div>
+<div>│       ├── index.html</div>
+<div>│       ├── js</div>
+<div>│       └── plugins</div>
+<div>└── platforms.json</div>
+<div>plugins</div>
+<div>├── browser.json</div>
+<div>├── cordova-plugin-whitelist</div>
+<div>│   ├── CONTRIBUTING.md</div>
+<div>│   ├── LICENSE</div>
+<div>│   ├── NOTICE</div>
+<div>│   ├── README.md</div>
+<div>│   ├── RELEASENOTES.md</div>
+<div>│   ├── package.json</div>
+<div>│   ├── plugin.xml</div>
+<div>│   ├── src</div>
+<div>│   │   ├── android</div>
+<div>│   │   └── ios</div>
+<div>│   └── whitelist.js</div>
+<div>└── fetch.json</div>
+<div>www</div>
+<div>├── css</div>
+<div>│   └── index.css</div>
+<div>├── img</div>
+<div>│   └── logo.png</div>
+<div>├── index.html</div>
+<div>└── js</div>
+<div>    └── index.js</div>
+<div><br/></div>
+<div>platformsディレクトリの以下の、browserディレクトリ以下に、buildディレクトリが追加されていることがわかる。</div>
+<div><br/></div>
+<div>これで実行できるようになったはず。</div>
+<div><br/></div>
+<div># browserでエミュレート</div>
+<div>$ cordova emulate browser</div>
+<div><br/></div>
+<div><img src="Cordova%E3%81%AE%E7%92%B0%E5%A2%83%E3%82%92Mac%E3%81%AB%E6%A7%8B%E7%AF%89%E3%80%81Android%20SDK%E3%81%AE%E5%B0%8E%E5%85%A5.resources/Screen%20Shot%202015-08-20%20at%2011.15.01%20AM.png" height="2182" width="1838"/></div>
+<div><br/></div>
+<div>これでbrowserはうまくいったみたい。</div>
+<div><br/></div>
+<div><u><b>Androidでの実行</b></u></div>
+<div><u><b><br/></b></u></div>
+<div>browserと同様に、プラットフォームを追加する。</div>
+<div><br/></div>
+<div>がしかし、AndroidではPC上でAndroidを動かすためのもの、(エミュレータ)を事前に準備しておかないといけない。</div>
+<div><br/></div>
+<div>
+<div>設定しなければいけないのは、二つ。</div>
+<div>・Android SDKの設定</div>
+<div>・AVD(Android Virtual Device)の生成</div>
+<div><br/></div>
+<div>・Android SDKのインストール</div>
+<div><a href="https://developer.android.com/sdk/installing/index.html?pkg=tools">https://developer.android.com/sdk/installing/index.html?pkg=tools</a></div>
+<div>ここからダウンロード</div>
+<div><br/></div>
+<div>ダウンロードしたファイルの中にある、Androidという実行ファイルを実行する。</div>
+<div>Android SDK Managerが開く。</div>
+<div><br/></div>
+<div><img src="Cordova%E3%81%AE%E7%92%B0%E5%A2%83%E3%82%92Mac%E3%81%AB%E6%A7%8B%E7%AF%89%E3%80%81Android%20SDK%E3%81%AE%E5%B0%8E%E5%85%A5.resources/Screen%20Shot%202015-08-20%20at%2011.58.01%20AM.png" height="1224" width="1624"/></div>
+<div>今回はよくわからなかったので、あるパッケージを全部入れてみた。</div>
+<div><br/></div>
+<div>Adroid SDKコマンドが叩けるように、パスを通す。</div>
+<div><br/></div>
+<div># bashrc or zshrc に記入する。</div>
+<div>export PATH=$PATH:$HOME/android-sdk/tools/:$HOME/android-sdk/platform-tools</div>
+<div><br/></div>
+<div># AVDの生成</div>
+<div>$ android avd</div>
+<div><br/></div>
+<div>下図のようなウィンドウが開くので、そこで設定する。</div>
+<div><br/></div>
+<div><img src="Cordova%E3%81%AE%E7%92%B0%E5%A2%83%E3%82%92Mac%E3%81%AB%E6%A7%8B%E7%AF%89%E3%80%81Android%20SDK%E3%81%AE%E5%B0%8E%E5%85%A5.resources/avd.png" height="2266" width="1664"/></div>
+<div>SDKの設定とAVDの設定が終わったらAndroidのエミュレートができるようになっているはず。</div>
+</div>
+<div><br/></div>
+<div>あとは、ブラウザのときと同様にプラットフォームを追加していく。</div>
+<div><br/></div>
+<div># プラットフォームにandroidを追加</div>
+<div>$ cordova platform add android</div>
+<div>Adding android project...</div>
+<div>Creating Cordova project for the Android platform:</div>
+<div>    Path: platforms/android</div>
+<div>    Package: io.cordova.hellocordova</div>
+<div>    Name: HelloCordova</div>
+<div>    Activity: MainActivity</div>
+<div>    Android target: android-22</div>
+<div>Copying template files...</div>
+<div>Android project created with cordova-android@4.0.2</div>
+<div>Installing "cordova-plugin-whitelist" for android</div>
+<div>
+<div><br/></div>
+<div># プラットフォーム一覧</div>
+</div>
+<div>$ cordova platforms</div>
+<div>Installed platforms: android 4.0.2, browser 3.5.2</div>
+<div>Available platforms: amazon-fireos, blackberry10, firefoxos, ios</div>
+<div><br/></div>
+<div># プラットフォーム追加時のプロジェクトのディレクトリ構成を確認</div>
+<div>$ tree *</div>
+<div><br/></div>
+<div>config.xml</div>
+<div>hage.txt</div>
+<div>hooks</div>
+<div>└── README.md</div>
+<div>platforms</div>
+<div>├── android</div>
+<div>│   ├── AndroidManifest.xml</div>
+<div>│   ├── CordovaLib</div>
+<div>│   │   ├── AndroidManifest.xml</div>
+<div>│   │   ├── build.gradle</div>
+<div>│   │   ├── cordova.gradle</div>
+<div>│   │   ├── project.properties</div>
+<div>│   │   └── src</div>
+<div>│   ├── assets</div>
+<div>│   │   ├── _where-is-www.txt</div>
+<div>│   │   └── www</div>
+<div>│   ├── build.gradle</div>
+<div>│   ├── cordova</div>
+<div>│   │   ├── android_sdk_version</div>
+<div>│   │   ├── build</div>
+<div>│   │   ├── build.bat</div>
+<div>│   │   ├── check_reqs</div>
+<div>│   │   ├── clean</div>
+<div>│   │   ├── clean.bat</div>
+<div>│   │   ├── defaults.xml</div>
+<div>│   │   ├── lib</div>
+<div>│   │   ├── log</div>
+<div>│   │   ├── log.bat</div>
+<div>│   │   ├── node_modules</div>
+<div>│   │   ├── run</div>
+<div>│   │   ├── run.bat</div>
+<div>│   │   ├── version</div>
+<div>│   │   └── version.bat</div>
+<div>│   ├── libs</div>
+<div>│   ├── platform_www</div>
+<div>│   │   ├── cordova-js-src</div>
+<div>│   │   └── cordova.js</div>
+<div>│   ├── project.properties</div>
+<div>│   ├── res</div>
+<div>│   │   ├── drawable</div>
+<div>│   │   ├── drawable-hdpi</div>
+<div>│   │   ├── drawable-land-hdpi</div>
+<div>│   │   ├── drawable-land-ldpi</div>
+<div>│   │   ├── drawable-land-mdpi</div>
+<div>│   │   ├── drawable-land-xhdpi</div>
+<div>│   │   ├── drawable-ldpi</div>
+<div>│   │   ├── drawable-mdpi</div>
+<div>│   │   ├── drawable-port-hdpi</div>
+<div>│   │   ├── drawable-port-ldpi</div>
+<div>│   │   ├── drawable-port-mdpi</div>
+<div>│   │   ├── drawable-port-xhdpi</div>
+<div>│   │   ├── drawable-xhdpi</div>
+<div>│   │   ├── values</div>
+<div>│   │   └── xml</div>
+<div>│   ├── settings.gradle</div>
+<div>│   └── src</div>
+<div>│       ├── io</div>
+<div>│       └── org</div>
+<div>├── browser</div>
+<div>│   ├省略</div>
+<div>└── platforms.json</div>
+<div>plugins</div>
+<div>├── android.json</div>
+<div>├── browser.json</div>
+<div>├── cordova-plugin-whitelist</div>
+<div>│   ├── CONTRIBUTING.md</div>
+<div>│   ├── LICENSE</div>
+<div>│   ├── NOTICE</div>
+<div>│   ├── README.md</div>
+<div>│   ├── RELEASENOTES.md</div>
+<div>│   ├── package.json</div>
+<div>│   ├── plugin.xml</div>
+<div>│   ├── src</div>
+<div>│   │   ├── android</div>
+<div>│   │   └── ios</div>
+<div>│   └── whitelist.js</div>
+<div>└── fetch.json</div>
+<div>www</div>
+<div>├── css</div>
+<div>│   └── index.css</div>
+<div>├── img</div>
+<div>│   └── logo.png</div>
+<div>├── index.html</div>
+<div>└── js</div>
+<div>    └── index.js</div>
+<div><br/></div>
+<div>android用のファイルが追加されていることがわかる。</div>
+<div><br/></div>
+<div>続いて、ビルド、実行をしてみる。</div>
+<div><br/></div>
+<div># プラットフォームをandroidに指定してビルド</div>
+<div>$ cordova build android</div>
+<div><br/></div>
+<div>browserのときと同様に、platformsディレクトリの以下の、androidディレクトリ以下に、buildディレクトリが追加されている。</div>
+<div><br/></div>
+<div># androidをエミュレート</div>
+<div>$ cordova emulate android</div>
+<div><br/></div>
+<div>下みたいなのが出ればOK。</div>
+<div><br/></div>
+<div><img src="Cordova%E3%81%AE%E7%92%B0%E5%A2%83%E3%82%92Mac%E3%81%AB%E6%A7%8B%E7%AF%89%E3%80%81Android%20SDK%E3%81%AE%E5%B0%8E%E5%85%A5.resources/Screen%20Shot%202015-08-22%20at%205.42.04%20PM.png" height="1336" width="1806"/></div>
+<div><br/></div>
+<div><br/></div>
+</body></html>

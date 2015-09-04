@@ -1,28 +1,68 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.controller('TLCtrl', function($scope) {
+  $scope.rows = []
+  var images = [
+    {
+      name: "sample0.png",
+      url: "/img/sample0.png"
+    },
+  {
+      name: "sample1.png",
+      url: "/img/sample1.png"
+    },
+  {
+      name: "sample2.png",
+      url: "/img/sample2.png"
+    },
+  {
+      name: "sample3.png",
+      url: "/img/sample3.png"
+    },
+  {
+      name: "sample4.png",
+      url: "/img/sample4.png"
+    },
+  {
+      name: "sample5.png",
+      url: "/img/sample5.png"
+    },
+  {
+      name: "sample6.png",
+      url: "/img/sample6.png"
+    },
+  {
+      name: "sample7.png",
+      url: "/img/sample7.png"
+    },
+  {
+      name: "sample8.png",
+      url: "/img/sample8.png"
+    },
+  {
+      name: "sample9.png",
+      url: "/img/sample9.png"
+    }
+  ]
 
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+  // 画像表示の列の数
+  // 列の数を変えた際には、tab−tl.htmlの<img>の中のcol-*を適切な数字に変更すること
+  // column = 2 のときは、col−50
+  // column = 4 のときは、col−25
+  var column = 4
 
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
+  // 画像を2個ずつのデータの配列にしておく
+  // [ [sample0,sample1], [sample2, sample3], [sample4, sample5], [sample6, sample7], [sample8, sample9]  ]
+  // $scope.rowsが２個ずつの画像が入った配列なので、tab-ui.htmlのng-repeatの部分で、$scope.rowsを利用して画像を2列にして表示する。
+  for(var i = 0; i < images.length / column ; i++) {
+    $scope.rows.push(images.slice(i*column, column*(i+1)))
+  }
+
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
+.controller('InfoCtrl', function($scope, Chats) {
+
 })
 
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('MapCtrl', function($scope) {
 });

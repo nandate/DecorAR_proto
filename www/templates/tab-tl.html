@@ -1,0 +1,7 @@
+<ion-view view-title="TimeLine">
+<ion-content>
+  <div class="row" ng-repeat="row in rows">
+    <img ng-repeat="image in row" class="col col-25" alt="{{image.name}}" ng-src="{{image.url}}" width="95%" height="95%">
+  </div>
+</ion-content>
+</ion-view>

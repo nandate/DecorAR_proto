@@ -55,28 +55,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       views: {
         'tab-info': {
           templateUrl: 'templates/tab-info.html',
-          controller: 'ChatsCtrl'
+          controller: 'InfoCtrl'
         }
       }
     })
-    /*
-    .state('tab.chat-detail', {
-      url: '/chats/:chatId',
-      views: {
-        'tab-chats': {
-          templateUrl: 'templates/chat-detail.html',
-          controller: 'ChatDetailCtrl'
-        }
-      }
-    })
-    */
 
   .state('tab.map', {
     url: '/map',
     views: {
       'tab-map': {
         templateUrl: 'templates/tab-map.html',
-        controller: 'AccountCtrl'
+        controller: 'MapCtrl'
       }
     }
   });
